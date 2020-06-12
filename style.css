@@ -1,0 +1,8 @@
+@import url('https://fonts.googleapis.com/css?family=Karla');
+.container { max-width: 90%; }
+.card, .table-responsive { border-radius: .5em; }
+.card, .pad { margin: 1em 0 3em 0;}
+.navbar {margin-bottom: 2em;}
+.navbar { padding: .7rem 0 ; }
+.table { margin-bottom: 0;}
+* { font-family: Karla;}
