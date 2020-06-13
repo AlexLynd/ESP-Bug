@@ -1,10 +1,15 @@
 function updateTables() {         
 
-    let clientTable  = document.querySelector('#clients'); 
-    let networkTable = document.querySelector('#networks');
-    var clientString  = "";
-    var networkString = "";
+    let clientTable  = document.querySelector('#clients');  var clientString  = "";
+    let networkTable = document.querySelector('#networks'); var networkString = "";
+    let knownTable   = document.querySelector('#known');    var knownString   = "";
 
+
+    $.getJSON("known.json", function(json_data) {  // update known devices
+
+        
+    });
+ 
     $.getJSON("clients.json", function(rawData) {  // update clients
         $.each(rawData, function( header, clients ) {
             $.each(clients, function( header, client ) {
@@ -30,7 +35,8 @@ function updateTables() {
         });
         networkTable.innerHTML=networkString;
     });
-     // scan every 30 seconds
+    
+    
 
 } 
 
