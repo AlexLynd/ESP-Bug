@@ -1,43 +1,41 @@
-function sendJSON(){ 
-               
-            let result = document.querySelector('#clients'); 
-            $.getJSON("clients.json", function(json) {
-                console.log(json); // this will show the info it in firebug console
-                console.log("enis");
-            });
+function updateTables() {         
 
+    let clientTable  = document.querySelector('#clients'); 
+    let networkTable = document.querySelector('#networks');
+    var clientString  = "";
+    var networkString = "";
 
+    $.getJSON("clients.json", function(rawData) {  // update clients
+        $.each(rawData, function( header, clients ) {
+            $.each(clients, function( header, client ) {
+                clientString+= "<tr>";
+                $.each(client, function( key, value ) {
+                    clientString+= "<td>"+value+"</td>";
+                }); 
+                clientString+="</tr>";
+            }); 
+        });
+        clientTable.innerHTML=clientString;
+    });
 
-
-
-            // result.innerHTML ="<p>fuck</p>";
-
-
+    $.getJSON("networks.json", function(rawData) {  // update networks
+        $.each(rawData, function( header, clients ) {
+            $.each(clients, function( header, client ) {
+                networkString+= "<tr>";
+                $.each(client, function( key, value ) {
+                    networkString+= "<td>"+value+"</td>";
+                }); 
+                networkString+="</tr>";
+            }); 
+        });
+        networkTable.innerHTML=networkString;
+    });
+     // scan every 30 seconds
 
 } 
 
-
-
-
-
-
-    //   <tbody>
-    //     <tr>
-    //       <th scope="row">Jacob</th>
-    //       <td>Otto</td>
-    //       <td>@mdo</td>
-    //       <td>Otto</td>
-    //     </tr>
-    //     <tr>
-    //       <th scope="row">2</th>
-    //       <td>Thornton</td>
-    //       <td>@fat</td>
-    //       <td>Otto</td>
-    //     </tr>
-    //     <tr>
-    //       <th scope="row">3</th>
-    //       <td>the Bird</td>
-    //       <td>@twitter</td>
-    //       <td>Otto</td>
-    //     </tr>
-    //   </tbody>
+function updateContent() {
+    updateTables();
+    window.setInterval(updateTables, 5000);
+    
+}
