@@ -8,7 +8,6 @@ function addDevice() {
     let url = "submit.php"; 
 
     xhr.open("POST", url, true); 
-
     xhr.setRequestHeader("Content-Type", "application/json"); 
 
     xhr.onreadystatechange = function () { 
@@ -20,7 +19,7 @@ function addDevice() {
     xhr.send(data); 
     document.getElementById('name').value = '';
     document.getElementById('bssid').value = '';
-    window.setTimeout(loadKnown(),1000);
+    window.setTimeout(loadKnown,100);
 } 
 
 // load known.csv to table
@@ -28,7 +27,7 @@ function loadKnown() {
     document.getElementById('known').innerHTML = '';
     var rawFile = new XMLHttpRequest();
     var csvFile = "./known.csv?rand="+Date.now();
-    rawFile.open("GET", csvFile, false); // dont cache CSV
+    rawFile.open("GET", csvFile, true); // dont cache CSV
     rawFile.onreadystatechange = function() {
         if(rawFile.readyState === 4) {
             if(rawFile.status === 200 || rawFile.status == 0) {
@@ -59,27 +58,20 @@ function loadKnown() {
 }
 
 // remove device from known.csv
-function deleteDevice(device) {
-    document.getElementById('known').innerHTML = '';
-    var rawFile = new XMLHttpRequest();
-    var csvFile = "./known.csv?t="+Date.now();
-    rawFile.open("GET", csvFile, false); // dont cache CSV
-    rawFile.onreadystatechange = function() {
-        if(rawFile.readyState === 4) {
-            if(rawFile.status === 200 || rawFile.status == 0) {
-                var allText = rawFile.responseText;
-                var allTextLines = allText.split(/\r\n|\n/);
-                for (var i=1; i<allTextLines.length-1; i++) { // ignore header and blank line
-                    
-                    var data = allTextLines[i].split(',');
-                    if (data[0]==device) {
-                        delete data;
-                    }
-                }
-                loadKnown();
-            }
-        }
-    }
-    rawFile.send(null);
-}
+function deleteDevice(device) {  
+    let xhr = new XMLHttpRequest(); 
+    let url = "submit.php"; 
+
+    xhr.open("POST", url, true); 
+    xhr.setRequestHeader("Content-Type", "application/json"); 
+
+    xhr.onreadystatechange = function () { 
+        if (xhr.readyState === 4 && xhr.status === 200) { 
+
+        } 
+    }; 
+    var data = JSON.stringify({"delete":{"bssid": device}}); // idk how to do API stuff
+    xhr.send(data); 
+    window.setTimeout(loadKnown,100);
+} 
 
