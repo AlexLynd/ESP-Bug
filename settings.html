@@ -6,13 +6,14 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
 
-        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> -->
+        <script src="jquery-3.1.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="style.css">
     </head>
-    <body>
+    <body onload="javascript:loadKnown();">
        
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -41,28 +42,12 @@
                 <table class="table table-striped table-bordered">
                     <thead class="thead-dark">
                     <tr>
-                        <th scope="col">Name</th>
                         <th scope="col">BSSID</th>
+                        <th scope="col">Name</th>
                         <th scope="col">Remove</th> 
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr>
-                        <th scope="row">Joe</th>
-                        <td>Mark</td>
-                        <td><button type="button" class="btn btn-danger">Remove</button></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Bob</th>
-                        <td>Jacob</td>
-                        <td><button type="button" class="btn btn-danger">Remove</button></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Fucker</th>
-                        <td>Larry</td>
-                        <td><button type="button" class="btn btn-danger">Remove</button></td>
-                    </tr>
-                    </tbody>
+                    <tbody id="known"> <!-- known devices --> </tbody>
                 </table>
 
                 </div>
@@ -82,47 +67,11 @@
                     </div>
                     <input type="text" class="form-control" aria-label="bssid" id="bssid" aria-describedby="basic-addon1">
                 </div>
-                <button type="button" class="btn btn-success" onclick="javascript:sendJSON();">Add</button></td>
+                <button type="button" class="btn btn-success" onclick="javascript:addDevice();" onclick="" >Add</button></td>
               </div>
               <p class="result"></p>
             <p class="text-center"><a href="#">Remote ESP Bug</a> tool made by <a href="">Alex Lynd</a>.</p>
-              <script>
-
-
-        function sendJSON(){ 
-               
-               let result = document.querySelector('.result'); 
-               let name = document.querySelector('#name'); 
-               let bssid = document.querySelector('#bssid'); 
-                  
-               // Creating a XHR object 
-               let xhr = new XMLHttpRequest(); 
-               let url = "submit.php"; 
-           
-               // open a connection 
-               xhr.open("POST", url, true); 
-     
-               // Set the request header i.e. which type of content you are sending 
-               xhr.setRequestHeader("Content-Type", "application/json"); 
-     
-               // Create a state change callback 
-               xhr.onreadystatechange = function () { 
-                   if (xhr.readyState === 4 && xhr.status === 200) { 
-     
-                       // Print received data from server 
-                       result.innerHTML = this.responseText; 
-     
-                   } 
-               }; 
-     
-               // Converting JSON data to string 
-               var data = JSON.stringify([{ "bssid": bssid.value, "name": name.value }]); 
-     
-               // Sending data with the request 
-               xhr.send(data); 
-           } 
-   
-              </script>
+              <script src="settings.js"></script>
         </div>
 
     </body>

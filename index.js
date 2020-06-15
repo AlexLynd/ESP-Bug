@@ -1,16 +1,12 @@
 function updateTables() {         
-
     let clientTable  = document.querySelector('#clients');  var clientString  = "";
     let networkTable = document.querySelector('#networks'); var networkString = "";
     let knownTable   = document.querySelector('#known');    var knownString   = "";
 
 
-    $.getJSON("known.json", function(json_data) {  // update known devices
 
-        
-    });
- 
-    $.getJSON("clients.json", function(rawData) {  // update clients
+    
+    $.getJSON("clients.json?rand="+Date.now(), function(rawData) {  // update clients
         $.each(rawData, function( header, clients ) {
             $.each(clients, function( header, client ) {
                 clientString+= "<tr>";
@@ -23,7 +19,8 @@ function updateTables() {
         clientTable.innerHTML=clientString;
     });
 
-    $.getJSON("networks.json", function(rawData) {  // update networks
+    $.getJSON("networks.json?rand="+Date.now(), function(rawData) {  // update networks
+        console.log("here");
         $.each(rawData, function( header, clients ) {
             $.each(clients, function( header, client ) {
                 networkString+= "<tr>";
@@ -34,13 +31,12 @@ function updateTables() {
             }); 
         });
         networkTable.innerHTML=networkString;
-    });
-    
-    
+    });    
 
 } 
 
 function updateContent() {
+    
     updateTables();
     window.setInterval(updateTables, 5000);
     

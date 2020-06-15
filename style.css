@@ -6,3 +6,20 @@
 .navbar { padding: .7rem 0 ; }
 .table { margin-bottom: 0;}
 * { font-family: Karla;}
+
+/* tr:not(:first-child){    
+    opacity: 0;
+    animation-name: fadeIn;
+    animation-duration: 3s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    
+    to {
+      opacity: 1;
+    }
+  } */
