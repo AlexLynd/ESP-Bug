@@ -41,13 +41,8 @@ else if ($data[0]->name) {  // known devices
     }
 }
 
-
-
-
-
-function deleteLineInFile($file,$string)
-{
-	$i=0;$array=array();
+function deleteLineInFile($file,$string) {
+	$i=0; $array=array();
 	
 	$read = fopen($file, "r") or die("can't open the file");
 	while(!feof($read)) {

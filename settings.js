@@ -74,4 +74,3 @@ function deleteDevice(device) {
     xhr.send(data); 
     window.setTimeout(loadKnown,100);
 } 
-

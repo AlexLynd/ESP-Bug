@@ -5,7 +5,7 @@
 .navbar {margin-bottom: 2em;}
 .navbar { padding: .7rem 0 ; }
 .table { margin-bottom: 0;}
-* { font-family: Karla;}
+* { font-family: Karla, Arial, Helvetica, sans-serif;}
 
 /* tr:not(:first-child){    
     opacity: 0;
