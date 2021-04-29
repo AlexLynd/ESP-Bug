@@ -3,9 +3,9 @@
 #include <ESP8266HTTPClient.h>
 #include <WiFiClient.h>
 
-const char* ssid = "MySpectrumWiFi8E-2G";
+const char* net = "MySpectrumWiFi8E-2G";
 const char* password = "anyplayer857";
-const char* serverName = "http://192.168.1.9:80/submit.php";
+const char* serverName = "http://192.168.1.17:80/Remote-WiFi-Bug/web/submit.php";
 
 unsigned long progTime;
 
@@ -23,9 +23,15 @@ String known[knownCount][2] = {
   
 };
 
+String bssid;
+String msg;
+String ssid;
+int httpResponseCode;
+
+
 void cb(esppl_frame_info *info) {
   
-  String ssid = "";
+  ssid = "";
   if (info->ssid_length > 0) {   
     for (int i= 0; i< info->ssid_length; i++) { ssid+= (char) info->ssid[i]; }
   }
@@ -60,9 +66,9 @@ boolean isFound(String bssid, String arr[][4]) {
 
 void setup() {
   delay(500);
-  Serial.begin(115200);
-
-  WiFi.begin(ssid, password);
+  Serial.begin(9600);
+  
+  WiFi.begin(net, password);
   Serial.println(WiFi.status());
   Serial.println("Connecting");
   while(WiFi.status() != WL_CONNECTED) {
@@ -78,7 +84,7 @@ void setup() {
   http.begin(serverName);
 
   http.addHeader("Content-Type", "application/json");
-  String msg = "[";
+  msg = "[";
   for (int i=0; i<knownCount; i++) {
     msg+="{\"bssid\":\""+known[i][0]+"\",\"name\":\""+known[i][1]+"\"}";
     if (i!= knownCount-1) msg+= ",";
@@ -113,22 +119,22 @@ void loop() {
 
   if (currTime - prevTime >= interval) { // every <interval> seconds
     prevTime = currTime;
-    Serial.println("Networks: "+(String)netCount);
+//    Serial.println("Networks: "+(String)netCount);
     
-    Serial.println("Clients: "+(String)clientCount);
+//    Serial.println("Clients: "+(String)clientCount);
     esppl_sniffing_stop();
     wifi_promiscuous_enable(false);
     WiFi.mode(WIFI_OFF);
-    Serial.println(WiFi.status());
+//    Serial.println(WiFi.status());
     WiFi.reconnect() ;
     WiFi.mode(WIFI_STA);
 //    WiFi.setOutputPower(0);
 
-    WiFi.begin(ssid, password);
+    WiFi.begin(net, password);
     Serial.println("Connecting again");
     while(WiFi.status() != WL_CONNECTED) {
       delay(500);
-      Serial.print(WiFi.status());
+//      Serial.print(WiFi.status());
     }
     if(WiFi.status()== WL_CONNECTED){
       WiFiClient client;
@@ -136,23 +142,20 @@ void loop() {
       http.begin(client,serverName);
     
       http.addHeader("Content-Type", "application/json");
-      String msg = "{\"networks\":[";
+      msg = "{\"networks\":[";
       for (int i=0; i<netCount; i++) {
 
         
         msg+= "{\"BSSID\": \""+formatBSSID(networks[i][0])+"\" , \"ESSID\": \""+networks[i][1]+"\", \"Channel\":\""+networks[i][2]+"\", \"RSSI\":\""+networks[i][3]+"\"}";
-        Serial.println(msg);
-        if (i!= netCount-1) msg+= ",";
+//        Serial.println(msg);
+        if (i!= netCount-1) {msg+= ",";}
       }
       msg+="]}";
-      int httpResponseCode = http.POST(msg);
+      httpResponseCode = http.POST(msg);
     
-      Serial.print("HTTP Response code: ");
-      Serial.println(httpResponseCode);
+//      Serial.print("HTTP Response code: "); Serial.println(httpResponseCode);
      
-      http.end();
-
- 
+      http.end(); 
       http.begin(client,serverName);
     
       http.addHeader("Content-Type", "application/json");
@@ -161,22 +164,21 @@ void loop() {
 
         
         msg+= "{\"BSSID\": \""+formatBSSID(clients[i][0])+"\" , \"Channel\": \""+clients[i][1]+"\", \"RSSI\":\""+clients[i][2]+"\", \"Destination\":\""+clients[i][3]+"\"}";
-        Serial.println(msg);
+//        Serial.println(msg);
         if (i!= netCount-1) msg+= ",";
       }
       msg+="]}";
       httpResponseCode = http.POST(msg);
     
-      Serial.print("HTTP Response code: ");
-      Serial.println(httpResponseCode);
+//      Serial.print("HTTP Response code: "); Serial.println(httpResponseCode);
      
       http.end();
     }
     else {
-      Serial.println("here");
+//      Serial.println("here");
     }
     
-    Serial.println();
+//    Serial.println();
     memset(networks, 0, sizeof(networks));
     memset(clients, 0, sizeof(clients));
     netCount=0; clientCount = 0;    
@@ -188,7 +190,7 @@ void loop() {
 }
 
 String formatBSSID(String raw) {
-  String bssid = (raw.substring(0,2)+":"+raw.substring(2,4)+":"+raw.substring(4,6)+":"+raw.substring(6,8)+":"+raw.substring(8,10)+":"+raw.substring(10,12));
+  bssid = (raw.substring(0,2)+":"+raw.substring(2,4)+":"+raw.substring(4,6)+":"+raw.substring(6,8)+":"+raw.substring(8,10)+":"+raw.substring(10,12));
   bssid.toUpperCase();
   return bssid;
 }
