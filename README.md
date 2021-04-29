@@ -6,7 +6,7 @@ Remote WiFi data logger using ESP8266 and ESPPL library.  More documentation soo
 <p align="center">
   <img alt="" src="/img/web.png">
   <br>
-  <b>Web Interface</b>
+  <b>Remote ESP8266 Web Interface</b>
   <br>
   <br>
 </p>
