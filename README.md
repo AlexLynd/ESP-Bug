@@ -10,3 +10,11 @@ Remote WiFi data logger using ESP8266 and ESPPL library.  More documentation soo
   <br>
   <br>
 </p>
+
+## Installation (Linux)
+Update machine
+```sudo apt update```
+```sudo apt upgrade```
+Install Nginx Server and PHP
+```sudo apt install nginx
+sudo apt install php```
