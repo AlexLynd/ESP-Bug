@@ -20,5 +20,10 @@ sudo apt upgrade
 Install Nginx Server and PHP
 ```
 sudo apt install nginx
-sudo apt install php
+sudo apt install php-fpm php-mysql
 ```
+Edit config file
+```
+sudo nano /etc/nginx/sites-available/default
+```
+
