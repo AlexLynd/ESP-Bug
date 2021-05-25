@@ -3,9 +3,9 @@
 #include <ESP8266HTTPClient.h>
 #include <WiFiClient.h>
 
-const char* net = "MySpectrumWiFi8E-2G";
-const char* password = "anyplayer857";
-const char* serverName = "http://192.168.1.17:80/Remote-WiFi-Bug/web/submit.php";
+const char* net = "MySpectrumWiFi20-2G";
+const char* password = "echominniesmokey22";
+const char* serverName = "http://192.168.1.89:80/web/submit.php";
 
 unsigned long progTime;
 

@@ -9,4 +9,10 @@ Remote WiFi data logger using ESP8266 and ESPPL library.  More documentation soo
   <b>Remote ESP8266 Web Interface</b>
   <br>
   <br>
+  <img alt="" src="/img/esp-bug.JPG">
+  <br>
+  <b>ESP Bug Implant</b>
+  <br>
+
 </p>
+
