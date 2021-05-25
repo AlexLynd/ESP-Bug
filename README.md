@@ -16,8 +16,6 @@ Remote WiFi data logger using ESP8266 and ESPPL library.  More documentation soo
 
 </p>
 
-<<<<<<< HEAD
-=======
 ## Installation (Linux)
 Update machine  
 ```
