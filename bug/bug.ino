@@ -3,8 +3,8 @@
 #include <ESP8266HTTPClient.h>
 #include <WiFiClient.h>
 
-const char* net = "";
-const char* password = "";
+const char* net = "network here";
+const char* password = " password here";
 const char* serverName = "http://192.168.1.89:80/web/submit.php";
 
 unsigned long progTime;
@@ -18,8 +18,8 @@ String clients[50][4]; int clientCount = 0;
 const int knownCount = 2;
 
 String known[knownCount][2] = {
-  {"ec:a9:40:57:41:8f","Alex"},
-  {"14:b7:f8:f5:88:4b","Neighbor"},
+  {"11:11:11:11:11:11","Alex"},
+  {"00:00:00:00:00:00","Neighbor"},
   
 };
 
