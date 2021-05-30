@@ -3,8 +3,8 @@
 #include <ESP8266HTTPClient.h>
 #include <WiFiClient.h>
 
-const char* net = "MySpectrumWiFi20-2G";
-const char* password = "echominniesmokey22";
+const char* net = "";
+const char* password = "";
 const char* serverName = "http://192.168.1.89:80/web/submit.php";
 
 unsigned long progTime;
